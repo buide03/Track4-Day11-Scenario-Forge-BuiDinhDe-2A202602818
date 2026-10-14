@@ -1,0 +1,48 @@
+{
+  "format": "avsim-studio/1",
+  "params": {
+    "cutT0": 6.5,
+    "cutDur": 2.4,
+    "cutV": 15,
+    "pedT0": 11,
+    "pedV": 1.45,
+    "busGo": 17,
+    "cutDs": -4,
+    "tgT": 0.9,
+    "mu": 0.5,
+    "cutGap": 12,
+    "cutBrake": 0,
+    "pedGap": 4.5,
+    "pedLook": 1,
+    "civil": true
+  },
+  "policy": {},
+  "hazards": [
+    {
+      "x": 140,
+      "side": "S",
+      "v": 1.1,
+      "t0": 0,
+      "trig": 50,
+      "type": "ped"
+    }
+  ],
+  "ego": "planner",
+  "world": "scene",
+  "space": {
+    "h0_x": [
+      136,
+      148
+    ],
+    "h0_v": [
+      1.05,
+      1.2
+    ],
+    "h0_trig": [
+      45,
+      60
+    ]
+  },
+  "exposure": 1.0,
+  "why": "Thiết kế kiểm thử có điều kiện, không phải tần suất giao thông thực. world=scene: mỗi lượt kiểm thử được chèn đúng một người băng ngang nên exposure=1 theo giao thức thử, không phải ước lượng số lần gặp mỗi chuyến ngoài đời; không nhân để so với xác suất toàn thị trấn. NHTSA mô tả Pedestrian Darts/Steps Out ngoài vạch tại https://www.nhtsa.gov/road-safety/pedestrian-safety ; nguồn chỉ hỗ trợ loại tình huống, không cung cấp exposure. FHWA nêu vận tốc thiết kế khoảng 1.1 m/s cho người cần thêm thời gian tại https://www.fhwa.dot.gov/publications/research/safety/04091/02.cfm ; chọn dải nhạy cảm 1.05–1.20 m/s quanh giá trị này, phân phối đều là giả định thí nghiệm. x=136–148 m cách vạch x=122 m 14–26 m: lựa chọn hình học kiểm thử sau vạch, không phải phân phối vị trí thực. trig=45–60 m xét thời gian tiếp cận khoảng 4.5–6 s ở 10 m/s, tương đương thời gian đi từ lề z=9.2 vào hành lang ego z=1.75±1.9: 5.55/v khoảng 4.6–5.3 s. Đường ướt mu=0.5 được cố định để khảo sát dự trữ phanh thấp; các khoảng không phải số liệu đo ngoài đời. Muốn suy ra tần suất mỗi chuyến cần video đếm số lần băng ngang trên số chuyến cùng tuyến, thời tiết và chiều dài hành trình."
+}
