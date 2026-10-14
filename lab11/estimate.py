@@ -12,7 +12,16 @@ from .search import proposal_logpdf
 def wilson_ci(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
     """TODO 4. Wilson score interval for k successes in n trials. Must behave at k = 0 (lower bound 0,
     upper bound > 0) where the plain normal interval collapses to [0, 0]. Return (0, 1) for n = 0."""
-    raise NotImplementedError("TODO 4: wilson_ci")
+    if n == 0:
+        return (0.0, 1.0)
+    p = k / n
+    z2 = z * z
+    denominator = 1 + z2 / n
+    center = (p + z2 / (2 * n)) / denominator
+    half_width = z * math.sqrt(p * (1 - p) / n + z2 / (4 * n * n)) / denominator
+    lo = 0.0 if k == 0 else max(0.0, center - half_width)
+    hi = 1.0 if k == n else min(1.0, center + half_width)
+    return (lo, hi)
 
 
 def log_weights(Z, Bn, nat: space.Natural, prop: dict, beta: float = 0.2) -> np.ndarray:
