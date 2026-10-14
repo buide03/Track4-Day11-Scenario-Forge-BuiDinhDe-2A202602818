@@ -1,0 +1,78 @@
+{
+  "source": "Shipped viewer/index.html and SimCore; actual browser screenshots",
+  "runs": [
+    {
+      "id": "B-01",
+      "source": "viewer.json",
+      "events": [
+        {
+          "t": 12.75,
+          "f": 255,
+          "a": "ego",
+          "b": "C2",
+          "kind": "contact",
+          "x": 93.44723664872731,
+          "z": 2.503104464181348,
+          "fake": false
+        }
+      ],
+      "screenshot": "shots/bus_bypass.png",
+      "time": 12.75
+    },
+    {
+      "id": "C-01",
+      "source": "viewer.json",
+      "events": [
+        {
+          "t": 18.75,
+          "f": 375,
+          "a": "ego",
+          "b": "P1",
+          "kind": "block",
+          "x": 120.86644014125875,
+          "z": 2.624242494892179,
+          "fake": false
+        }
+      ],
+      "screenshot": "shots/crosswalk_block.png",
+      "time": 18.75
+    }
+  ],
+  "fix_comparison": {
+    "source_run": "B-01",
+    "source": "fix_comparison_viewer.json",
+    "baseline_events": [
+      {
+        "t": 12.75,
+        "f": 255,
+        "a": "ego",
+        "b": "C2",
+        "kind": "contact",
+        "x": 93.44723664872731,
+        "z": 2.503104464181348,
+        "fake": false
+      }
+    ],
+    "chosen_events": [],
+    "time": 12.75,
+    "screenshot": "shots/fix_with_baseline_ghost.png"
+  },
+  "hazard": {
+    "source": "hazard.json",
+    "events": [
+      {
+        "t": 18.25,
+        "f": 365,
+        "a": "ego",
+        "b": "H0",
+        "kind": "contact",
+        "x": 138.83003447231025,
+        "z": 2.2025000000000037,
+        "fake": false
+      }
+    ],
+    "time": 18.25,
+    "screenshot": "shots/hazard_exact.png"
+  },
+  "page_errors": []
+}

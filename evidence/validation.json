@@ -1,0 +1,22 @@
+{
+  "mssv": "202602818",
+  "town": "A",
+  "full_budget_steps": [
+    "estimate",
+    "export",
+    "fix",
+    "hunt",
+    "mc",
+    "mine",
+    "replay",
+    "world"
+  ],
+  "todos_public_tests_passed": 31,
+  "python_js_parity_tests_passed": 10,
+  "test_note": "Counts observed during completion: public TODO tests in WSL; parity tests with Windows Python and Node. This artifact verifier does not rerun those tests. Hidden grader tests unavailable.",
+  "protected_files_unchanged": true,
+  "screenshot_count": 4,
+  "cloud_rows": 9600,
+  "artifact_consistency": "passed",
+  "exact_hazard_replay": "matched"
+}
