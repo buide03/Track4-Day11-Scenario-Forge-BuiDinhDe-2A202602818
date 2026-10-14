@@ -1,0 +1,33 @@
+{
+  "format": "avsim-viewer/1",
+  "title": "Chosen policy solid; original policy ghost",
+  "policy": {
+    "cutinLat": 3.0
+  },
+  "baseline_policy": {},
+  "runs": [
+    {
+      "id": "F-01",
+      "label": "bus_bypass",
+      "outcome": "safe",
+      "others": "reactive",
+      "params": {
+        "cutT0": 9.632288987770718,
+        "cutDur": 5.601590764327787,
+        "cutV": 15.35253436593004,
+        "cutDs": 5.983489971914484,
+        "pedT0": 7.984464578454618,
+        "pedV": 1.2905990243892802,
+        "busGo": 14.50680507511956,
+        "tgT": 0.754870274455408,
+        "cutGap": 5.082461426809009,
+        "pedGap": 4.552351788269869,
+        "mu": 0.8,
+        "pedLook": 1.0,
+        "cutBrake": 0.0,
+        "civil": true
+      },
+      "policy": null
+    }
+  ]
+}
