@@ -30,7 +30,24 @@ def min_ttc(R: core.Rollout, cap: float = 10.0) -> np.ndarray:
     Shapes: R.F is (K, NF, N, 7) with x, z, hx, hz, v, a, d; core.IX["ego"] is the ego's actor index.
     Vectorise over frames (a Python loop over 481 frames x K scenarios is too slow for Part C).
     """
-    raise NotImplementedError("TODO 1: min_ttc")
+    ego = R.F[:, :, core.IX["ego"]]
+    leader_index = R.EGO[..., 3].astype(int)
+    # Missing leaders use actor zero only for indexing; the mask excludes them.
+    safe_index = np.maximum(leader_index, 0)
+    leader = R.F[np.arange(R.K)[:, None], np.arange(R.F.shape[1])[None, :], safe_index]
+    relative = leader[..., :2] - ego[..., :2]
+    lon = np.sum(relative * ego[..., 2:4], axis=-1)
+    half_length = np.where(core.PEDS[safe_index], 0.3, core.LEN[safe_index] / 2)
+    gap = np.maximum(lon - HALF_EGO - half_length, 0.0)
+    closing_speed = ego[..., 4] - leader[..., 4]
+    valid = (leader_index >= 0) & (closing_speed > 0.1)
+    ttc = np.full(gap.shape, np.inf)
+    np.divide(gap, closing_speed, out=ttc, where=valid)
+    result = np.minimum(ttc.min(axis=1), cap)
+    for k in range(R.K):
+        if ego_events(R, k):
+            result[k] = 0.0
+    return result
 
 
 def contact_type(R: core.Rollout, k: int, event: dict) -> str:
@@ -39,7 +56,19 @@ def contact_type(R: core.Rollout, k: int, event: dict) -> str:
     Put the other actor in the ego's frame: lon = r . h, lat = -r_x h_z + r_z h_x with h = (hx, hz) of the ego.
     'front' if lon > 2.3 and |lat| < 1.6; 'rear' if lon < -2.3 and |lat| < 1.6; otherwise 'side'.
     """
-    raise NotImplementedError("TODO 2: contact_type")
+    other_id = event["b"] if event["a"] == "ego" else event["a"]
+    ego = R.F[k, event["f"], core.IX["ego"]]
+    other = R.F[k, event["f"], core.IX[other_id]]
+    rx, rz = other[:2] - ego[:2]
+    hx, hz = ego[2:4]
+    lon = rx * hx + rz * hz
+    lat = -rx * hz + rz * hx
+    if abs(lat) < 1.6:
+        if lon > HALF_EGO:
+            return "front"
+        if lon < -HALF_EGO:
+            return "rear"
+    return "side"
 
 
 def progress_metrics(R: core.Rollout) -> tuple[np.ndarray, np.ndarray]:
